@@ -14,13 +14,13 @@ const ARTISTS_COLLECTION = "artists";
 const AUCTION_BASE_URL = "https://www.myndlist.is/auction/Auctions.aspx?WebAuctionID=";
 const ITEM_BASE_URL = "https://www.myndlist.is/auction/WebAuctionItems.aspx?ItemID=";
 
-const MAX_MISSES = 40;
-const FIRST_AUCTION_ID = 1;
+const MAX_MISSES = 3;
+const FIRST_AUCTION_ID = 3800;
 const SKIP_RANGE_START = 240;
 const SKIP_RANGE_END = 3370;
-const RUN_LIMIT = 10;
+const RUN_LIMIT = 50;
 const DEBUG = false; // set to true for verbose logging and reduced delay
-const DELAY_MS = DEBUG ? 200 : 1500;
+const DELAY_MS = DEBUG ? 300 : 1500;
 
 const TEST_MODE = process.env.TEST_MODE === "true";
 const TEST_AUCTION_LIMIT = 3;
@@ -359,6 +359,7 @@ async function main() {
   // Find highest auctionId already stored
   const latest = await auctionsCol.find().sort({ auctionId: -1 }).limit(1).toArray();
   const startId = TEST_MODE ? TEST_START_ID : (latest.length > 0 ? latest[0].auctionId + 1 : FIRST_AUCTION_ID);
+  //const startId = FIRST_AUCTION_ID;
   console.log(`🔍 Starting from AuctionID ${startId}\n`);
 
   let misses = 0;
@@ -438,6 +439,7 @@ async function main() {
 
         await delay(DELAY_MS);
       }
+      savedAuctions++;
     }
 
     id++;

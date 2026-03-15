@@ -14,6 +14,7 @@ const ITEM_BASE_URL = "https://www.myndlist.is/auction/AuctionItemDetails.aspx?I
 const DELAY_MS = 1500;
 const MAX_MISSES = 10;
 const FIRST_ITEM_ID = 14546;
+//last item id 28097
 
 const TEST_MODE = process.env.TEST_MODE === "true";
 const TEST_ITEM_LIMIT = 10;
