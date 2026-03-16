@@ -250,7 +250,7 @@ async function main() {
 
   // Find highest itemId already stored for AuctionItemDetails items
   const latest = await itemsCol
-    .find({ sourceUrl: { $regex: "AuctionItemDetails" } })
+    .find({ scraperType: "uppbod", sourceUrl: { $regex: "AuctionItemDetails" } })
     .sort({ itemId: -1 })
     .limit(1)
     .toArray();
